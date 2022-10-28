@@ -4,11 +4,16 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Modal from "../components/modal/modal";
 import useModal from "../components/modal/useModal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
 function Home() {
     const { isShowing: ismodalcreated, toggle: togglemodalcreated } = useModal();
+    const [startDate, setStartDate] = useState(null);
+    const [birthDate, setBirthDate] = useState(null);    
+    
 
 
     const dispatch = useDispatch()
@@ -37,6 +42,11 @@ function Home() {
 
       }
 
+      const custostartDate=<input id="start-date" type="text" onChange={handleInput} />
+      const custobirthDate=<input id="date-of-birth" type="text" onChange={handleInput} />
+
+
+
     return (<main>
         <div className="title">
           <h1>HRnet</h1>
@@ -58,10 +68,24 @@ function Home() {
                 <input type="text" id="last-name" onChange={handleInput} required/>
 
                 <label for="date-of-birth">Date of Birth</label>
-                <input id="date-of-birth" type="text" onChange={handleInput} />
-
+                <DatePicker
+                placeholderText="Click to select a date"
+                selected={birthDate} 
+                onChange={(date) => setBirthDate(date)} 
+                isClearable
+                customTimeInput={<custobirthDate/>}
+                dateFormat="dd-MM-yyyy"
+                   />
                 <label for="start-date">Start Date</label>
-                <input id="start-date" type="text" onChange={handleInput} />
+                <DatePicker
+                placeholderText="Click to select a date"
+                selected={startDate} 
+                onChange={(date) => setStartDate(date)} 
+                isClearable
+                customTimeInput={<custostartDate/>}
+                dateFormat="dd-MM-yyyy"
+
+                   />
 
                 <fieldset class="address">
                     <legend>Address</legend>
