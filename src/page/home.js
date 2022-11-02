@@ -1,20 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, } from "react-redux";
 import Modal from "../components/modal/modal";
 import useModal from "../components/modal/useModal";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { savedNewEmployee } from "../features/employeeSlice";
 
 
 
 function Home() {
+
+  //state utilise pour gerer l'etat de l'afffichage de la modal
     const { isShowing: ismodalcreated, toggle: togglemodalcreated } = useModal();
 
 
     const dispatch = useDispatch()
+
+    //state du formulaire employee
 
     const [employee, setEmployee] = useState({
         firstName: "",
@@ -29,11 +31,13 @@ function Home() {
       })
 
 
-      
+      // fonction qui remplit le state employee par rapport a le nom de l'entree du formulaire
 
       const handleInput = (e) => {
         setEmployee({ ...employee, [e.target.name]: e.target.value })
       }
+
+      // fonction de submission du formulaire envoyer les information sur state global affichage de la modal et vidage du formulaire
 
       const handleSubmit = (e) => {
         e.preventDefault()
@@ -59,28 +63,28 @@ function Home() {
             ></Modal>
           <form action="#" id="create-employee" onSubmit={handleSubmit}>
 
-                <label for="firstName">First Name</label>
+                <label htmlFor="firstName">First Name</label>
                 <input type="text" id="firstName" name="firstName" onChange={handleInput} required/>
 
-                <label for="lastName">Last Name</label>
+                <label htmlFor="lastName">Last Name</label>
                 <input type="text" id="lastName" name="lastName" onChange={handleInput} required/>
 
-                <label for="dateOfBirth">Date of Birth</label>
+                <label htmlFor="dateOfBirth">Date of Birth</label>
                 <input type="date" name="dateOfBirth" onChange={handleInput} aria-label="employee's birthdate"/>
 
-                <label for="startDate">Start Date</label>
+                <label htmlFor="startDate">Start Date</label>
                 <input type="date" name="startDate" onChange={handleInput} aria-label="employee's start date"/>
 
-                <fieldset class="address">
+                <fieldset className="address">
                     <legend>Address</legend>
 
-                    <label for="street">Street</label>
+                    <label htmlFor="street">Street</label>
                     <input id="street" type="text" name="street" onChange={handleInput} />
 
-                    <label for="city">City</label>
+                    <label htmlFor="city">City</label>
                     <input id="city" type="text" name="city" onChange={handleInput}/>
 
-                    <label for="state">State</label>
+                    <label htmlFor="state">State</label>
                     <select
                     type="select" 
                     name="state" 
@@ -152,11 +156,11 @@ function Home() {
                     <option value="WY">Wyoming</option>
                     </select>
 
-                    <label for="zipCode">Zip Code</label>
+                    <label htmlFor="zipCode">Zip Code</label>
                     <input id="zipCode" name="zipCode" type="number" onChange={handleInput}/>
                 </fieldset>
                 
-                <label for="department">Department</label>
+                <label htmlFor="department">Department</label>
                 <select 
                 name="department" 
                 id="department"
