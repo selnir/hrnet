@@ -2,17 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, } from "react-redux";
-import Modal from "../components/modal/modal";
-import useModal from "../components/modal/useModal";
 import { savedNewEmployee } from "../features/employeeSlice";
+import {Modal} from "react-modal-selnir"
+
 
 
 
 function Home() {
 
   //state utilise pour gerer l'etat de l'afffichage de la modal
-    const { isShowing: ismodalcreated, toggle: togglemodalcreated } = useModal();
-
+  const [showModal, setShowModal] = useState(false)
+  const hideModal = () => showModal && setShowModal(false)
 
     const dispatch = useDispatch()
 
@@ -42,7 +42,7 @@ function Home() {
       const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(savedNewEmployee(employee))
-        togglemodalcreated()
+        setShowModal(true)
         e.target.reset()
       }
 
@@ -56,11 +56,10 @@ function Home() {
         <div className="container">
           <Link  to="Employee">View Current Employees</Link>     
           <h2>Create Employee</h2>
-            <Modal
-            isShowing={ismodalcreated}
-            hide={togglemodalcreated}
-            title="Employee Created!"
-            ></Modal>
+
+            <Modal show={showModal} onClickCloseBtn={hideModal}>
+            <h1>Employee Created!</h1>
+            </Modal>
           <form action="#" id="create-employee" onSubmit={handleSubmit}>
 
                 <label htmlFor="firstName">First Name</label>
